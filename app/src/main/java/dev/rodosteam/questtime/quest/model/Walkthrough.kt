@@ -20,7 +20,7 @@ class Walkthrough private constructor(
     val page get() = content.pages.getValue(history.last())
 
     /**
-     * Шаг назад.
+     * Шаг назад. TODO: Не дать удалить из history.
      *
      * @return возвращает предыдущее состояние
      */
@@ -34,6 +34,6 @@ class Walkthrough private constructor(
      */
     fun choose(index: Int) = Walkthrough(
         content,
-        history + page.choices[index].targetId
+        history + page.choices[index].nextPageId
     )
 }

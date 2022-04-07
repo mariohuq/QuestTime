@@ -1,5 +1,5 @@
 package dev.rodosteam.questtime.quest.repo
-
+// TODO: Rename to QuestMetaRepoImpl
 import dev.rodosteam.questtime.quest.model.QuestItem
 
 class QuestItemRepoImpl : QuestItemRepo {
@@ -7,11 +7,9 @@ class QuestItemRepoImpl : QuestItemRepo {
 
     init {
         val questsInfo = QuestsInfo()
-        quests[1] = questsInfo.generateRandomQuest(1)
-        quests[2] = questsInfo.generateRandomQuest(2)
-        quests[3] = questsInfo.generateRandomQuest(3)
-        quests[4] = questsInfo.generateRandomQuest(4)
-        quests[5] = questsInfo.generateRandomQuest(5)
+        repeat(10) {
+            quests[it] = questsInfo.generateRandomQuest(it)
+        }
     }
 
     override fun findAll(): List<QuestItem> {
@@ -33,5 +31,9 @@ class QuestItemRepoImpl : QuestItemRepo {
 
     override fun add(item: QuestItem): Boolean {
         return quests.put(item.id, item) == null
+    }
+
+    override fun remove(id: Int): QuestItem? {
+        return quests.remove(id)
     }
 }

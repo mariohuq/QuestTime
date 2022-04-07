@@ -24,7 +24,7 @@ class QuestContent private constructor(val pages: Map<Page.Id, Page>, val starti
         value class Id(private val id: Long)
 
         data class Choice(
-            val targetId: Id,
+            val nextPageId: Id,
             val displayText: String
         )
     }
