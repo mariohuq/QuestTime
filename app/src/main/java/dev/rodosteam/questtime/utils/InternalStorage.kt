@@ -35,6 +35,6 @@ class InternalStorage(private val filesDir: File) {
     private fun fileWithDirectoryAssurance(directory: String, filename: String): File {
         val dir = File(directory)
         if (!dir.exists()) dir.mkdirs()
-        return File("$directory/$filename")
+        return dir.resolve(filename)
     }
 }
