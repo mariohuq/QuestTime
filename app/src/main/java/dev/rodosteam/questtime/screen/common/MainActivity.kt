@@ -10,6 +10,8 @@ import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import dev.rodosteam.questtime.R
 import dev.rodosteam.questtime.databinding.ActivityMainBinding
+import dev.rodosteam.questtime.quest.repo.meta.QuestMetaRepo
+import dev.rodosteam.questtime.utils.InternalStorage
 
 class MainActivity : AppCompatActivity() {
 
@@ -46,6 +48,15 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+        // Copy quest resources to internal storage
+        val intStorage = InternalStorage(applicationContext.filesDir)
+        if (!intStorage.exists(QuestMetaRepo.PATH_IN_INTERNAL_ST)) {
+            intStorage.copyFromResources(
+                resources,
+                QuestMetaRepo.DEFAULT_RESOURCES,
+                QuestMetaRepo.PATH_IN_INTERNAL_ST
+            )
+        }
     }
 }
 

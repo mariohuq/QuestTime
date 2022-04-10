@@ -62,7 +62,7 @@ class QuestContentFragment : BaseFragment() {
     private fun sync(walk: Walkthrough) {
         val choices = walk.page.choices.size
 
-        textView.text=walk.page.displayText
+        textView.text = walk.page.displayText
 
         for (i in 0..3) {
             if (i < choices) {

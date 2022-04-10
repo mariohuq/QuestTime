@@ -6,6 +6,7 @@ import dev.rodosteam.questtime.quest.repo.content.QuestContentRepoJson
 import dev.rodosteam.questtime.quest.repo.meta.QuestMetaRepo
 import dev.rodosteam.questtime.quest.repo.meta.QuestMetaRepoJson
 import dev.rodosteam.questtime.quest.repo.meta.QuestMetaRepoMock
+import dev.rodosteam.questtime.utils.InternalStorage
 
 class App : Application() {
 
@@ -16,6 +17,6 @@ class App : Application() {
     }
 
     val questContentRepo: QuestContentRepo by lazy {
-        QuestContentRepoJson(resources)
+        QuestContentRepoJson(questMetaRepo, InternalStorage(applicationContext.filesDir))
     }
 }

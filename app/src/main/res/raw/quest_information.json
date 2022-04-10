@@ -8,7 +8,7 @@
       "downloads": 0,
       "favorites": 0,
       "created": 0,
-      "filename": "test_quest.json"
+      "filename": "quests_library1/test_quest.json"
     },
     {
       "id": 1,
@@ -18,7 +18,7 @@
       "downloads": 12,
       "favorites": 35,
       "created": 1649413091,
-      "filename": "hobbit.json"
+      "filename": "quests_library1/hobbit.json"
     }
   ]
 }
