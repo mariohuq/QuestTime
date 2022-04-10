@@ -23,16 +23,16 @@ class QuestMetaRepoJson(resources: Resources) : QuestMetaRepoBase() {
 
         private fun readMetas(jsonMetas: JSONArray): Iterable<QuestMeta> =
             jsonMetas.asIterableOfJSONObjects().map { currentJson ->
-                val metaId = currentJson.getInt(ID)
+                val id = currentJson.getInt(ID)
                 QuestMeta(
-                    metaId,
+                    id,
                     currentJson.getString(TITLE),
                     currentJson.getString(DESCRIPTION),
                     currentJson.getString(AUTHOR),
                     currentJson.getInt(DOWNLOADS),
                     currentJson.getInt(FAVORITES),
                     currentJson.getLong(CREATED),
-                    IMAGES_MAP.getValue(metaId),
+                    IMAGES_MAP.getValue(id),
                     currentJson.getString(FILENAME)
                 )
             }
