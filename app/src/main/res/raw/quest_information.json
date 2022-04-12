@@ -8,7 +8,8 @@
       "downloads": 0,
       "favorites": 0,
       "created": 0,
-      "filename": "quests_library1/test_quest.json"
+      "filename": "quests_library/test_quest.json",
+      "iconFilename": "quests_library/images/test_icon.png.png"
     },
     {
       "id": 1,
@@ -18,7 +19,8 @@
       "downloads": 12,
       "favorites": 35,
       "created": 1649413091,
-      "filename": "quests_library1/hobbit.json"
+      "filename": "quests_library/hobbit.json",
+      "iconFilename": "quests_library/images/hobbit_lego_icon.png"
     }
   ]
 }

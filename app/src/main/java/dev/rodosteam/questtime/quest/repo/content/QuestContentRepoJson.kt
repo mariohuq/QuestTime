@@ -13,6 +13,7 @@ class QuestContentRepoJson(
     private val intStorage: InternalStorage
 ) : QuestContentRepo {
     companion object {
+        // Json primitives
         private const val START_NODE_ID = "startNodeId"
         private const val PAGES = "pages"
         private const val CHOICES = "choices"

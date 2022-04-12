@@ -3,6 +3,7 @@ package dev.rodosteam.questtime.screen.common
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.graphics.drawable.toBitmap
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
@@ -11,6 +12,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import dev.rodosteam.questtime.R
 import dev.rodosteam.questtime.databinding.ActivityMainBinding
 import dev.rodosteam.questtime.quest.repo.meta.QuestMetaRepo
+import dev.rodosteam.questtime.quest.repo.meta.QuestMetaRepoJson
 import dev.rodosteam.questtime.utils.InternalStorage
 
 class MainActivity : AppCompatActivity() {
@@ -48,15 +50,8 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        // Copy quest resources to internal storage
-        val intStorage = InternalStorage(applicationContext.filesDir)
-        if (!intStorage.exists(QuestMetaRepo.PATH_IN_INTERNAL_ST)) {
-            intStorage.copyFromResources(
-                resources,
-                QuestMetaRepo.DEFAULT_RESOURCES,
-                QuestMetaRepo.PATH_IN_INTERNAL_ST
-            )
-        }
+        // Init repo from resources
+        QuestMetaRepoJson.initRes(resources, applicationContext)
     }
 }
 
