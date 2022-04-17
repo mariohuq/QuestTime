@@ -10,6 +10,10 @@ import org.json.JSONArray
 import org.json.JSONObject
 import org.json.JSONTokener
 
+/**
+ * Attention: This class shouldn't be used before calling initRes().
+ * Attention: You shouldn't write paths with filenames in json fields. See json examples in res/raw
+ */
 class QuestMetaRepoJson(intStorage: InternalStorage) : QuestMetaRepoBase() {
     companion object {
         // Json primitives
@@ -24,25 +28,34 @@ class QuestMetaRepoJson(intStorage: InternalStorage) : QuestMetaRepoBase() {
         private const val FILENAME = "filename"
         private const val ICON_FILENAME = "iconFilename"
 
-        private val IMAGES_RESOURCES = mapOf(
+        // Default resources, that will be available in internal storage after initialization,
+        // without download from external sources.
+        val IMAGES_RESOURCES = mapOf(
             R.drawable.test_icon to "test_icon.png",
-            R.drawable.hobbit_lego_icon to "hobbit_lego_icon.png"
+            R.drawable.hobbit_lego_icon to "hobbit_lego_icon.png",
+            // For random quest mocks:
+            R.drawable.scooby_doo_icon to "scooby_doo_icon.png",
+            R.drawable.heroes_icon to "heroes_icon.png",
+            R.drawable.alice_icon to "alice_icon.png",
+            R.drawable.lord_of_ring_icon to "lord_of_ring_icon.png",
+            R.drawable.shrek_icon to "shrek_icon.png"
         )
         private val JSON_RESOURCES = mapOf(
             R.raw.quest_information to "quest_information.json",
             R.raw.test_quest to "test_quest.json", R.raw.hobbit to "hobbit.json"
         )
 
-        private const val PATH_IN_INTERNAL_ST = "quests_library"
+        private const val PATH_IN_INTERNAL_ST = "quests_library/"
         private const val META_INFO_FILENAME = "$PATH_IN_INTERNAL_ST/quest_information.json"
-        private const val IMAGES_LOCATION = "$PATH_IN_INTERNAL_ST/images"
+        const val IMAGES_LOCATION = "$PATH_IN_INTERNAL_ST/images/"
 
         /**
          * This function init meta and content repo in internal storage from resources.
-         * If it was init already, nothing will happens
+         * If it was init already, nothing will happens.
+         * Attention: you should call it before using metaRepo.
          */
         fun initRes(resources: Resources, applicationContext: Context) {
-            // Copy quest resources to internal storage
+            // Copying quest resources to internal storage
             val intStorage = InternalStorage(applicationContext.filesDir)
             if (!intStorage.exists(PATH_IN_INTERNAL_ST)) {
                 intStorage.copyFromRawResources(
@@ -67,8 +80,8 @@ class QuestMetaRepoJson(intStorage: InternalStorage) : QuestMetaRepoBase() {
                     currentJson.getInt(DOWNLOADS),
                     currentJson.getInt(FAVORITES),
                     currentJson.getLong(CREATED),
-                    currentJson.getString(ICON_FILENAME),
-                    currentJson.getString(FILENAME)
+                    IMAGES_LOCATION + currentJson.getString(ICON_FILENAME),
+                    PATH_IN_INTERNAL_ST + currentJson.getString(FILENAME)
                 )
             }
     }

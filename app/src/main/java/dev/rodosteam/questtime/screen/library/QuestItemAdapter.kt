@@ -13,14 +13,16 @@ import dev.rodosteam.questtime.R
 import dev.rodosteam.questtime.quest.model.QuestMeta
 import dev.rodosteam.questtime.screen.preview.QuestPreviewFragment.Companion.DOWNLOADED_KEY
 import dev.rodosteam.questtime.screen.preview.QuestPreviewFragment.Companion.QUEST_KEY
+import dev.rodosteam.questtime.utils.InternalStorage
 
 class QuestItemAdapter(
     private val quests: List<QuestMeta>,
-    private val navController: NavController
+    private val navController: NavController,
+    private val intStorage: InternalStorage
 ) :
     RecyclerView.Adapter<QuestItemAdapter.QuestItemHolder>() {
 
-    class QuestItemHolder(val view: View) : RecyclerView.ViewHolder(view) {
+    class QuestItemHolder(private val intStorage: InternalStorage, val view: View) : RecyclerView.ViewHolder(view) {
         private var titleTv: TextView = view.findViewById(R.id.fragment_library_item__title)
         private var descriptionTv: TextView = view.findViewById(R.id.fragment_library_item__description)
         private var imageView: ImageView = view.findViewById(R.id.fragment_library_item__image)
@@ -30,14 +32,14 @@ class QuestItemAdapter(
         fun bind(item: QuestMeta) {
             titleTv.text = item.title
             descriptionTv.text = item.description
-            imageView.setImageResource(item.iconId)
+            imageView.setImageBitmap(intStorage.getBitmap(item.iconFilename))
         }
     }
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): QuestItemHolder {
         val view = LayoutInflater.from(viewGroup.context)
             .inflate(R.layout.fragment_library_item, viewGroup, false)
-        return QuestItemHolder(view)
+        return QuestItemHolder(intStorage, view)
     }
 
     override fun onBindViewHolder(holder: QuestItemHolder, position: Int) {

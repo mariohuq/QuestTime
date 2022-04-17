@@ -1,6 +1,5 @@
 package dev.rodosteam.questtime.quest.repo.meta
 
-import dev.rodosteam.questtime.R
 import dev.rodosteam.questtime.quest.model.QuestMeta
 
 interface QuestMetaRepo {

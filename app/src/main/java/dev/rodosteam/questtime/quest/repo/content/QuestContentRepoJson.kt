@@ -22,8 +22,11 @@ class QuestContentRepoJson(
         private const val DISPLAY_TEXT = "displayText"
     }
 
+    /**
+     * Find quest content in quest repository.
+     */
     override fun findById(id: Int): QuestContent? {
-        val meta = metaRepo.findById(id) ?: return null
+        metaRepo.findById(id) ?: return null
         val filename = metaRepo.findById(id)!!.filename
 
         val jsonObject = JSONTokener(intStorage.read(filename)).nextValue() as JSONObject

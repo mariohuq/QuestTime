@@ -38,7 +38,7 @@ class QuestPreviewFragment : BaseFragment() {
         quest?.let {
             // TODO do good
             mainActivity.supportActionBar?.title = it.title
-            binding.fragmentPreviewImage.setImageResource(it.iconId)
+            binding.fragmentPreviewImage.setImageBitmap(app.intStorage.getBitmap(it.iconFilename))
             binding.fragmentPreviewTitle.text = it.title
             binding.fragmentPreviewDescription.text = it.description
             binding.fragmentPreviewAuthor.text = it.author

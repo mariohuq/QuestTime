@@ -21,6 +21,10 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        // Init repo from resources
+        QuestMetaRepoJson.initRes(resources, applicationContext)
+
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
@@ -49,9 +53,6 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
-
-        // Init repo from resources
-        QuestMetaRepoJson.initRes(resources, applicationContext)
     }
 }
 
