@@ -66,7 +66,7 @@ class QuestsMockInfo {
             (minInt..maxInt).random(),
             (minInt..maxInt).random(),
             1L,
-            QuestMetaRepoJson.IMAGES_LOCATION + iconFilenames.random(),
+            QuestMetaRepoJson.IMAGES_LOCATION + "/" + iconFilenames.random(),
             //TODO: filename
             ""
         )
