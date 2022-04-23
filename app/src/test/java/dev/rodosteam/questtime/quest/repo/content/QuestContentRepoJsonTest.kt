@@ -3,9 +3,10 @@ package dev.rodosteam.questtime.quest.repo.content
 import dev.rodosteam.questtime.quest.model.QuestContent
 import dev.rodosteam.questtime.quest.repo.meta.QuestMetaRepoJson
 import dev.rodosteam.questtime.utils.InternalStorage
-import org.junit.Assert
-import org.junit.Test
+import org.junit.jupiter.api.Test
 import java.io.File
+import kotlin.test.assertEquals
+import kotlin.test.assertNotNull
 
 class QuestContentRepoJsonTest {
     companion object {
@@ -22,12 +23,13 @@ class QuestContentRepoJsonTest {
         val questMetaRepo = QuestMetaRepoJson(intStorage)
         val questContentRepo = QuestContentRepoJson(questMetaRepo, intStorage)
         val quest = questContentRepo.findById(TEST_ID)
-        Assert.assertNotNull(quest)
-        Assert.assertNotNull(quest?.pages)
-        Assert.assertEquals(quest?.pages?.size, 3)
+        assertNotNull(quest)
+        assertNotNull(quest.pages)
+        assertEquals(quest.pages.size, 3)
 
-        Assert.assertNotNull(quest?.pages?.get(FIRST))
-        Assert.assertNotNull(quest?.pages?.get(FIRST)?.choices)
-        Assert.assertEquals(quest?.pages?.get(FIRST)?.choices?.size, 2)
+        val firstPage = quest.pages[FIRST]
+        assertNotNull(firstPage)
+        assertNotNull(firstPage.choices)
+        assertEquals(firstPage.choices.size, 2)
     }
 }
