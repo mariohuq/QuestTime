@@ -17,8 +17,6 @@ class QuestContentRepoJsonTest {
 
     @Test
     fun reading_isCorrect() {
-        // TODO: Почему-то на компе JSONTokener внутри MetaRepo не работает и возвращает null, хотя json файл читается корректно
-        // Поэтому этот тест крашится
         val intStorage = InternalStorage(File(TEST_FILES_DIR))
         val questMetaRepo = QuestMetaRepoJson(intStorage)
         val questContentRepo = QuestContentRepoJson(questMetaRepo, intStorage)

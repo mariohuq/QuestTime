@@ -17,15 +17,13 @@ class QuestMetaRepoJsonTest {
             downloads = 0,
             favorites = 0,
             created = 0L,
-            iconFilename = "test_icon.png",
-            filename = "test_quest.json"
+            iconFilename = "quests_library/images/test_icon.png",
+            filename = "quests_library/test_quest.json"
         )
     }
 
     @Test
     fun reading_isCorrect() {
-        // TODO: Почему-то на компе JSONTokener внутри MetaRepo не работает и возвращает null, хотя json файл читается корректно
-        // Поэтому этот тест крашитсяЫ
         val questMetaRepo = QuestMetaRepoJson(InternalStorage(File(TEST_FILES_DIR)))
         val meta = questMetaRepo.findById(TEST_META.id)
         assertEquals(TEST_META, meta)

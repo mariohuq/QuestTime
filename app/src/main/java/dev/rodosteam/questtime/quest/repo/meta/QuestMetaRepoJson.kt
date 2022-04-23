@@ -45,9 +45,9 @@ class QuestMetaRepoJson(intStorage: InternalStorage) : QuestMetaRepoBase() {
             R.raw.test_quest to "test_quest.json", R.raw.hobbit to "hobbit.json"
         )
 
-        private const val PATH_IN_INTERNAL_ST = "quests_library/"
+        private const val PATH_IN_INTERNAL_ST = "quests_library"
         private const val META_INFO_FILENAME = "$PATH_IN_INTERNAL_ST/quest_information.json"
-        const val IMAGES_LOCATION = "$PATH_IN_INTERNAL_ST/images/"
+        const val IMAGES_LOCATION = "$PATH_IN_INTERNAL_ST/images"
 
         /**
          * This function init meta and content repo in internal storage from resources.
@@ -80,8 +80,8 @@ class QuestMetaRepoJson(intStorage: InternalStorage) : QuestMetaRepoBase() {
                     currentJson.getInt(DOWNLOADS),
                     currentJson.getInt(FAVORITES),
                     currentJson.getLong(CREATED),
-                    IMAGES_LOCATION + currentJson.getString(ICON_FILENAME),
-                    PATH_IN_INTERNAL_ST + currentJson.getString(FILENAME)
+                    "$IMAGES_LOCATION/${currentJson.getString(ICON_FILENAME)}",
+                    "$PATH_IN_INTERNAL_ST/${currentJson.getString(FILENAME)}"
                 )
             }
     }
