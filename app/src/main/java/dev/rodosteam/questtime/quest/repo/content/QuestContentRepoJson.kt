@@ -8,6 +8,9 @@ import org.json.JSONArray
 import org.json.JSONObject
 import org.json.JSONTokener
 
+/**
+ * Attention: This class shouldn't be used before calling initRes() from QuestMetaRepoJson.
+ */
 class QuestContentRepoJson(
     private val metaRepo: QuestMetaRepo,
     private val intStorage: InternalStorage
@@ -26,10 +29,10 @@ class QuestContentRepoJson(
      * Find quest content in quest repository.
      */
     override fun findById(id: Int): QuestContent? {
-        metaRepo.findById(id) ?: return null
-        val filename = metaRepo.findById(id)!!.filename
+        val questMeta = metaRepo.findById(id)
+        questMeta ?: return null
 
-        val jsonObject = JSONTokener(intStorage.read(filename)).nextValue() as JSONObject
+        val jsonObject = JSONTokener(intStorage.read(questMeta.filename)).nextValue() as JSONObject
         val jsonPages = jsonObject.getJSONArray(PAGES)
         return QuestContent(
             readPages(jsonPages),

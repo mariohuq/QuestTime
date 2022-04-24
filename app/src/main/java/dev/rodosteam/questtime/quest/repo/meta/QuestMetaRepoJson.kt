@@ -11,7 +11,7 @@ import org.json.JSONObject
 import org.json.JSONTokener
 
 /**
- * Attention: This class shouldn't be used before calling initRes().
+ * Attention: This class shouldn't be used before calling initRes(). initRes copy default quests and images.
  * Attention: You shouldn't write paths with filenames in json fields. See json examples in res/raw
  */
 class QuestMetaRepoJson(intStorage: InternalStorage) : QuestMetaRepoBase() {

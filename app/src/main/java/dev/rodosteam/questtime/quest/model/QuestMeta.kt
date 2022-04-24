@@ -1,7 +1,5 @@
 package dev.rodosteam.questtime.quest.model
 
-import android.graphics.Bitmap
-
 data class QuestMeta(
     val id: Int,
     val title: String,
