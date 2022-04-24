@@ -1,6 +1,5 @@
 package dev.rodosteam.questtime.quest.repo.meta
 
-import dev.rodosteam.questtime.R
 import dev.rodosteam.questtime.quest.model.QuestMeta
 
 class QuestsMockInfo {
@@ -56,13 +55,7 @@ class QuestsMockInfo {
                 " Люди, которые чего-то не могут, будут уверять, что и у тебя тоже не выйдет. Поставил цель — добейся! И точка."
     )
 
-    private val iconId = arrayListOf(
-        R.drawable.scooby_doo_icon,
-        R.drawable.heroes_icon,
-        R.drawable.alice_icon,
-        R.drawable.lord_of_ring_icon,
-        R.drawable.shrek_icon
-    )
+    private val iconFilenames = QuestMetaRepoJson.IMAGES_RESOURCES.values
 
     fun generateRandomQuest(id: Int): QuestMeta {
         return QuestMeta(
@@ -73,7 +66,7 @@ class QuestsMockInfo {
             (minInt..maxInt).random(),
             (minInt..maxInt).random(),
             1L,
-            iconId.random(),
+            QuestMetaRepoJson.IMAGES_LOCATION + "/" + iconFilenames.random(),
             //TODO: filename
             ""
         )

@@ -1,32 +1,31 @@
 package dev.rodosteam.questtime.quest.repo.meta
 
-import dev.rodosteam.questtime.App
-import org.junit.Assert
-import org.junit.Test
+import dev.rodosteam.questtime.quest.model.QuestMeta
+import dev.rodosteam.questtime.utils.InternalStorage
+import org.junit.jupiter.api.Test
+import java.io.File
+import kotlin.test.assertEquals
 
 class QuestMetaRepoJsonTest {
     companion object {
-        const val TEST_QUEST_ID = -1
-        const val TEST_QUEST_TITLE = "Test quest"
-        const val TEST_QUEST_DESCRIPTION = "Test quest description"
-        const val TEST_QUEST_AUTHOR = "Lev Saskov"
-        const val TEST_QUEST_DOWNLOADS = 0
-        const val TEST_QUEST_FAVORITES = 0
-        const val TEST_QUEST_CREATED = 0L
-        const val TEST_QUEST_FILENAME = "test_quest.json"
+        private const val TEST_FILES_DIR = "../test_files"
+        private val TEST_META = QuestMeta(
+            id = -1,
+            title = "Test quest",
+            description = "Test quest description",
+            author = "Lev Saskov",
+            downloads = 0,
+            favorites = 0,
+            created = 0L,
+            iconFilename = "quests_library/images/test_icon.png",
+            filename = "quests_library/test_quest.json"
+        )
     }
 
     @Test
     fun reading_isCorrect() {
-        val questRepo = QuestMetaRepoJson(TODO("access resources from tests"))
-        val meta = questRepo.findById(TEST_QUEST_ID)
-        Assert.assertNotNull(meta)
-        Assert.assertEquals(TEST_QUEST_TITLE, meta?.title)
-        Assert.assertEquals(TEST_QUEST_DESCRIPTION, meta?.description)
-        Assert.assertEquals(TEST_QUEST_AUTHOR, meta?.author)
-        Assert.assertEquals(TEST_QUEST_DOWNLOADS, meta?.downloads)
-        Assert.assertEquals(TEST_QUEST_FAVORITES, meta?.favorites)
-        Assert.assertEquals(TEST_QUEST_CREATED, meta?.created)
-        Assert.assertEquals(TEST_QUEST_FILENAME, meta?.filename)
+        val questMetaRepo = QuestMetaRepoJson(InternalStorage(File(TEST_FILES_DIR)))
+        val meta = questMetaRepo.findById(TEST_META.id)
+        assertEquals(TEST_META, meta)
     }
 }

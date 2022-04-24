@@ -3,6 +3,7 @@ package dev.rodosteam.questtime.screen.common
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.graphics.drawable.toBitmap
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
@@ -10,6 +11,9 @@ import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import dev.rodosteam.questtime.R
 import dev.rodosteam.questtime.databinding.ActivityMainBinding
+import dev.rodosteam.questtime.quest.repo.meta.QuestMetaRepo
+import dev.rodosteam.questtime.quest.repo.meta.QuestMetaRepoJson
+import dev.rodosteam.questtime.utils.InternalStorage
 
 class MainActivity : AppCompatActivity() {
 
@@ -17,6 +21,10 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        // Init repo from resources
+        QuestMetaRepoJson.initRes(resources, applicationContext)
+
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
@@ -45,7 +53,6 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
-
     }
 }
 

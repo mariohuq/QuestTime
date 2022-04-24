@@ -48,7 +48,7 @@ class QuestContentFragment : BaseFragment() {
             // TODO do good
             mainActivity.supportActionBar?.title = it.title
             binding.fragmentContentContent.text = it.title
-            binding.fragmentContentImage.setImageResource(it.iconId)
+            binding.fragmentContentImage.setImageBitmap(app.intStorage.getBitmap(it.iconFilename))
             content = app.questContentRepo.findById(it.id)
         }
 
@@ -62,7 +62,7 @@ class QuestContentFragment : BaseFragment() {
     private fun sync(walk: Walkthrough) {
         val choices = walk.page.choices.size
 
-        textView.text=walk.page.displayText
+        textView.text = walk.page.displayText
 
         for (i in 0..3) {
             if (i < choices) {
