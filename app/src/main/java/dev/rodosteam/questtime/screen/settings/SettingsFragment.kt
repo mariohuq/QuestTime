@@ -45,8 +45,6 @@ class SettingsFragment : BaseFragment() {
                 dialogInterface?.dismiss()
             }.show()
         }
-
-
         return root
     }
 

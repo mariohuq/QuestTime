@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Context
 import android.content.SharedPreferences
 import android.content.res.Configuration
+import android.os.Build
 import androidx.core.app.ActivityCompat
 import java.util.Locale
 
@@ -23,7 +24,7 @@ object LocaleManager {
 
     fun getLanguageCode(context: Context): String {
         val sharedPreferences: SharedPreferences = context.getSharedPreferences("languageCodePrefs", Context.MODE_PRIVATE)
-        return sharedPreferences.getString("languageCodeValue", Languages.DEFAULT.code)!!
+        return sharedPreferences.getString("languageCodeValue", getSystemOrDefaultLanguage(context).code)!!
     }
 
     fun setLanguagePosition(context: Context, position: Int) {
@@ -35,7 +36,7 @@ object LocaleManager {
 
     fun getLanguagePosition(context: Context): Int {
         val sharedPreferences: SharedPreferences = context.getSharedPreferences("languageCodePrefs", Context.MODE_PRIVATE)
-        return sharedPreferences.getInt("languagePositionValue", Languages.DEFAULT.ordinal)
+        return sharedPreferences.getInt("languagePositionValue", getSystemOrDefaultLanguage(context).ordinal)
     }
 
     fun changeLanguageCode(context: Context, activity : Activity, languageCode: String, position: Int) {
@@ -53,5 +54,16 @@ object LocaleManager {
         configuration.setLocale(locale)
         configuration.setLayoutDirection(locale)
         return context.createConfigurationContext(configuration)
+    }
+
+    private fun getSystemOrDefaultLanguage(context: Context) : Languages {
+        val lang : String
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            lang = context.resources.configuration.locales[0].language
+        } else {
+            @Suppress("DEPRECATION")
+            lang = context.resources.configuration.locale.language
+        }
+        return Languages.findByCode(lang)
     }
 }

@@ -10,5 +10,11 @@ enum class Languages(val label: String, val code: String) {
         val OPTIONS = values().map {
             it.label
         }.toTypedArray()
+
+        fun findByCode(code: String) : Languages {
+            return values().find {
+                it.code == code
+            } ?: DEFAULT
+        }
     }
 }
