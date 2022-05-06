@@ -1,21 +1,18 @@
 package dev.rodosteam.questtime.screen.settings
 
+import android.content.DialogInterface
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
-import android.widget.Spinner
-import androidx.core.app.ActivityCompat.recreate
+import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.ViewModelProvider
 import dev.rodosteam.questtime.R
 import dev.rodosteam.questtime.databinding.FragmentSettingsBinding
 import dev.rodosteam.questtime.screen.common.base.BaseFragment
-import dev.rodosteam.questtime.utils.LocaleManager.getLanguageCode
+import dev.rodosteam.questtime.utils.Languages
+import dev.rodosteam.questtime.utils.LocaleManager.changeLanguageCode
 import dev.rodosteam.questtime.utils.LocaleManager.getLanguagePosition
-import dev.rodosteam.questtime.utils.LocaleManager.setLanguageCode
-import dev.rodosteam.questtime.utils.LocaleManager.setLanguagePosition
 
 
 class SettingsFragment : BaseFragment() {
@@ -37,32 +34,18 @@ class SettingsFragment : BaseFragment() {
 
         _binding = FragmentSettingsBinding.inflate(inflater, container, false)
         val root: View = binding.root
-
-        val languagesSpinner : Spinner = binding.languages
-        ArrayAdapter.createFromResource(requireContext(), R.array.languages, android.R.layout.simple_spinner_item).also {
-            adapter -> adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-            languagesSpinner.adapter = adapter
+        val selected = getLanguagePosition(requireContext())
+        binding.fragmentSettingsLangContainerValue.text = Languages.values()[selected].label
+        binding.fragmentSettingsLangContainer.setOnClickListener {
+            AlertDialog.Builder(requireContext()).setTitle(R.string.language_settings).setSingleChoiceItems(
+                Languages.OPTIONS,
+                selected
+            ) { dialogInterface: DialogInterface?, i: Int ->
+                changeLanguageCode(requireContext(), mainActivity, Languages.values()[i].code, i)
+                dialogInterface?.dismiss()
+            }.show()
         }
-        languagesSpinner.setSelection(getLanguagePosition(requireContext()))
-        languagesSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(
-                parent: AdapterView<*>?,
-                view: View?,
-                position: Int,
-                id: Long
-            ) {
-                when (position) {
-                    0 -> changeLanguageCode("en", 0)
-                    1 -> changeLanguageCode("ru", 1)
-                    2 -> changeLanguageCode("de", 2)
-                }
-            }
 
-            override fun onNothingSelected(parent: AdapterView<*>?) {
-                changeLanguageCode("en", 0)
-            }
-
-        }
 
         return root
     }
@@ -72,11 +55,4 @@ class SettingsFragment : BaseFragment() {
         _binding = null
     }
 
-    private fun changeLanguageCode(languageCode: String, position: Int) {
-        if (getLanguageCode(requireContext()) != languageCode) {
-            setLanguageCode(requireContext(), languageCode)
-            setLanguagePosition(requireContext(), position)
-            recreate(mainActivity)
-        }
-    }
 }

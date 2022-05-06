@@ -1,8 +1,10 @@
 package dev.rodosteam.questtime.utils
 
+import android.app.Activity
 import android.content.Context
 import android.content.SharedPreferences
 import android.content.res.Configuration
+import androidx.core.app.ActivityCompat
 import java.util.Locale
 
 
@@ -21,7 +23,7 @@ object LocaleManager {
 
     fun getLanguageCode(context: Context): String {
         val sharedPreferences: SharedPreferences = context.getSharedPreferences("languageCodePrefs", Context.MODE_PRIVATE)
-        return sharedPreferences.getString("languageCodeValue", "en")!!
+        return sharedPreferences.getString("languageCodeValue", Languages.DEFAULT.code)!!
     }
 
     fun setLanguagePosition(context: Context, position: Int) {
@@ -33,7 +35,15 @@ object LocaleManager {
 
     fun getLanguagePosition(context: Context): Int {
         val sharedPreferences: SharedPreferences = context.getSharedPreferences("languageCodePrefs", Context.MODE_PRIVATE)
-        return sharedPreferences.getInt("languagePositionValue", 0)
+        return sharedPreferences.getInt("languagePositionValue", Languages.DEFAULT.ordinal)
+    }
+
+    fun changeLanguageCode(context: Context, activity : Activity, languageCode: String, position: Int) {
+        if (getLanguageCode(context) != languageCode) {
+            setLanguageCode(context, languageCode)
+            setLanguagePosition(context, position)
+           ActivityCompat.recreate(activity)
+        }
     }
 
     private fun updateResources(context: Context, language: String): Context {
