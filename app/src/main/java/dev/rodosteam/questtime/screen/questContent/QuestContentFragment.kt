@@ -7,9 +7,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
+import com.bumptech.glide.Glide
 import dev.rodosteam.questtime.databinding.FragmentContentBinding
 import dev.rodosteam.questtime.quest.model.QuestContent
 import dev.rodosteam.questtime.quest.model.Walkthrough
+import dev.rodosteam.questtime.quest.repo.content.QuestContentRepoJson
 import dev.rodosteam.questtime.screen.common.base.BaseFragment
 import dev.rodosteam.questtime.screen.preview.QuestPreviewFragment.Companion.QUEST_KEY
 
@@ -32,7 +34,7 @@ class QuestContentFragment : BaseFragment() {
         viewModel = ViewModelProvider(this)[QuestContentViewModel::class.java]
         _binding = FragmentContentBinding.inflate(inflater, container, false)
         val id = requireArguments().getInt(QUEST_KEY)
-        val quest = app.questMetaRepo.findById(id)
+        val quest = app.questRepo.lastLoaded[id]
 
         textView = binding.fragmentContentText
 
@@ -48,8 +50,11 @@ class QuestContentFragment : BaseFragment() {
             // TODO do good
             mainActivity.supportActionBar?.title = it.title
             binding.fragmentContentContent.text = it.title
-            binding.fragmentContentImage.setImageBitmap(app.intStorage.getBitmap(it.iconFilename))
-            content = app.questContentRepo.findById(it.id)
+            Glide.with(binding.root)
+                .load(quest.iconUrl)
+                .centerCrop()
+                .into(binding.fragmentContentImage)
+            content = QuestContentRepoJson.readQuest(quest.contentJson)
         }
 
         if (content != null) {
