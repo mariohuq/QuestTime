@@ -1,5 +1,6 @@
 package dev.rodosteam.questtime.screen.common
 
+import android.content.Context
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
@@ -11,6 +12,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import dev.rodosteam.questtime.R
 import dev.rodosteam.questtime.databinding.ActivityMainBinding
 import dev.rodosteam.questtime.quest.repo.meta.QuestMetaRepoJson
+import dev.rodosteam.questtime.utils.LocaleManager
 
 class MainActivity : AppCompatActivity() {
 
@@ -55,6 +57,10 @@ class MainActivity : AppCompatActivity() {
     override fun onSupportNavigateUp(): Boolean {
         val navController = findNavController(R.id.nav_host_fragment_activity_main)
         return navController.navigateUp() || super.onSupportNavigateUp()
+    }
+
+    override fun attachBaseContext(newBase: Context?) {
+        super.attachBaseContext(LocaleManager.setLocale(newBase!!))
     }
 
 }
